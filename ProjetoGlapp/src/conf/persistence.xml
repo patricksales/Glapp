@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="ProjetoGlappPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>br.com.glapp.Modelo.Empresa</class>
+        <class>br.com.glapp.Modelo.Estabelecimento</class>
+        <class>br.com.glapp.Modelo.Produto</class>
+        <class>br.com.glapp.Modelo.Restaurante</class>
+        <class>br.com.glapp.Modelo.TipoProduto</class>
+        <class>br.com.glapp.Teste.TipoProduto</class>
+        <class>br.com.glapp.Teste.Produto</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://192.168.1.105:1433/Glapp"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="fatecsul"/>
+            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+        </properties>
+    </persistence-unit>
+</persistence>
