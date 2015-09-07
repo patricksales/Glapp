@@ -1,2 +1,4 @@
-/ProjetoGlapp/nbproject/private/
+/ProjetoGlapp/nbproject/
 /ProjetoGlapp/build/
+*~
+*.txt
