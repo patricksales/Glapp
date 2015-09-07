@@ -66,7 +66,7 @@ public class RecursoTipoProduto {
     }
 
     @GET
-    @Path("/get/{id}")
+    @Path("{id}")
     @Produces({"application/xml", "application/json"})
     //@Produces({MediaType.APPLICATION_JSON})
     public TipoProduto getTipoProdutoById(@PathParam("id") Long id) {
@@ -80,12 +80,11 @@ public class RecursoTipoProduto {
     }
 
     @GET
-    @Path("/get/procura")
+    @Path("/procura")
     @Produces({MediaType.APPLICATION_JSON})
-    public TipoProduto getTipoProdutoByDescricao(@QueryParam("descricao") String descricao, @QueryParam("id") Long id) {
+    public TipoProduto getTipoProdutoByDescricao(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            System.out.println("Descricao: " + descricao + "\n Id: " + id);
-            TipoProduto tp = (TipoProduto) jpa.findNamedQueryOB("TipoProduto.findBy.descricao", "descricao", "%" + descricao + "%");
+            TipoProduto tp = (TipoProduto) jpa.findNamedQueryOB("TipoProduto.findBy.descricao", "descricao", "%" + valor + "%");
             return tp;
         } catch (DAOException ex) {
             Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
