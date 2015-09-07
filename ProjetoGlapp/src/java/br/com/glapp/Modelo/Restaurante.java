@@ -1,6 +1,7 @@
 package br.com.glapp.Modelo;
 
 import java.io.Serializable;
+import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -10,6 +11,7 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue(value = "Restaurante")
+@Singleton
 public class Restaurante extends Empresa implements Serializable {
 
     private String cardapio;

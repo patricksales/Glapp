@@ -2,8 +2,11 @@ package br.com.glapp.Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -11,10 +14,13 @@ import javax.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue(value = "Estabelecimento")
+@Singleton
 public class Estabelecimento extends Empresa implements Serializable {
 
     private String unidade;
+    @Temporal(TemporalType.TIME)
     private Date horarioAbertura;
+    @Temporal(TemporalType.TIME)
     private Date horarioFechamento;
 
     public String getUnidade() {

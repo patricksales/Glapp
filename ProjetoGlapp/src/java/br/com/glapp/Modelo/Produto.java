@@ -1,6 +1,7 @@
 package br.com.glapp.Modelo;
 
 import java.io.Serializable;
+import javax.inject.Singleton;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.OneToOne;
  * @author Patrick
  */
 @Entity
+@Singleton
 public class Produto implements Serializable {
     
     @Id

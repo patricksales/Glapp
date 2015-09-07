@@ -1,6 +1,7 @@
 package br.com.glapp.Modelo;
 
 import java.io.Serializable;
+import javax.inject.Singleton;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 @Table(name = "Empresa")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Classe")
+@Singleton
 public abstract class Empresa implements Serializable {
 
     @Id

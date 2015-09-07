@@ -11,7 +11,7 @@
         <class>br.com.glapp.Teste.Produto</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://192.168.1.105:1433/Glapp"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://localhost:1433/Glapp"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.password" value="fatecsul"/>
