@@ -71,8 +71,7 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    //@Produces({MediaType.APPLICATION_JSON})
+    @Produces({"application/json", "application/xml"})
     public TipoProduto getTipoProdutoById(@PathParam("id") Long id) {
         try {
             System.out.println("PASSOU AQUI");

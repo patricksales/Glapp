@@ -7,17 +7,20 @@
 $(document).ready(function () {
 
     var tabelaObj = $("#tabela-tipo-produtos");
-    
-    $.get("recursos/tipoproduto/1")
-            .success(function(dadosRecebidos){
-                var linha = $("<tr>");
-                var colunaId = $("<td>");
-                var colunaDescricao = $("<td>");
-                colunaId.html(dadosRecebidos.idTipoProduto);
-                colunaDescricao.html(dadosRecebidos.descricao);
-                linha.append(colunaId);
-                linha.append(colunaDescricao);                
-                tabelaObj.find("tbody").append(linha);
-    });
+
+    $.getJSON("recursos/tipoproduto/all")
+            .success(function (dadosRecebidos) {
+                console.log(dadosRecebidos);
+                dadosRecebidos.forEach(function (tipoProduto) {
+                    var linha = $("<tr>");
+                    var colunaId = $("<td>");
+                    var colunaDescricao = $("<td>");
+                    colunaId.html(tipoProduto.idTipoProduto);
+                    colunaDescricao.html(tipoProduto.descricao);
+                    linha.append(colunaId);
+                    linha.append(colunaDescricao);
+                    tabelaObj.find("tbody").append(linha);
+                });
+            });
 
 });
