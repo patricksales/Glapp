@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 @Entity
 @Singleton
 @NamedQueries({
+    @NamedQuery(name = "Produto.findBy.All", query = "SELECT P FROM Produto AS P"),
     @NamedQuery(name = "Produto.findBy.idProduto", query = "SELECT P FROM Produto AS P WHERE P.idProduto = :idProduto"),
     @NamedQuery(name = "Produto.findBy.nome", query = "SELECT P FROM Produto AS P WHERE P.nome = :nome"),
     @NamedQuery(name = "Produto.findBy.estabelecimento.nome", query = "SELECT P FROM Produto AS P WHERE P.estabelecimento.nome LIKE :estabelecimento")})

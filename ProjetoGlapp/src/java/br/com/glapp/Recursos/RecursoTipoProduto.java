@@ -27,6 +27,7 @@ import javax.ws.rs.core.MediaType;
  * @author Patrick
  */
 @Path("/tipoproduto")
+@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
 public class RecursoTipoProduto {
 
     //@PersistenceContext(unitName = "ProjetoGlappPU")
@@ -71,7 +72,7 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("{id}")
-    @Produces({"application/json", "application/xml"})
+    //@Produces({"application/json", "application/xml"})
     public TipoProduto getTipoProdutoById(@PathParam("id") Long id) {
         try {
             System.out.println("PASSOU AQUI");
@@ -85,7 +86,7 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("/procura")
-    @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
+    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
     public TipoProduto getTipoProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
             return (TipoProduto) filtro.retornaTipoProduto(campo, valor);
@@ -99,7 +100,7 @@ public class RecursoTipoProduto {
     @Path("/all")
     //@Produces({MediaType.APPLICATION_JSON})
     //@Produces({"application/xml", "application/json"})
-    @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
+    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
     public List<TipoProduto> getTipoProdutoByAll() {
         try {
             List<TipoProduto> listTP = (List<TipoProduto>) filtro.retornaTipoProduto("all", "all");

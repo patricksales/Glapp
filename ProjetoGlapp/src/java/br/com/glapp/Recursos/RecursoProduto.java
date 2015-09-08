@@ -4,6 +4,7 @@ import br.com.glapp.Controle.JPA.Exception.DAOException;
 import br.com.glapp.Controle.JPA.GenericoJpaController;
 import br.com.glapp.Funcoes.Filtro;
 import br.com.glapp.Modelo.Produto;
+import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ import javax.ws.rs.core.MediaType;
  * @author Patrick
  */
 @Path("/produto")
+@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
 public class RecursoProduto {
 
     //@PersistenceContext(unitName = "ProjetoGlappPU")
@@ -67,7 +69,7 @@ public class RecursoProduto {
 
     @GET
     @Path("{id}")
-    @Produces({"application/xml", "application/json"})
+    //@Produces({"application/xml", "application/json"})
     //@Produces({MediaType.APPLICATION_JSON})
     public Produto getProdutoById(@PathParam("id") Long id) {
         try {
@@ -81,14 +83,28 @@ public class RecursoProduto {
 
     @GET
     @Path("/procura")
-    @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
+    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
     //@Produces({"application/xml", "application/json"})
     public Produto getProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            System.out.println("PASSOU AQUI");
-            return filtro.retornaProduto(campo, valor);
+            return (Produto) filtro.retornaProduto(campo, valor);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @GET
+    @Path("/all")
+    //@Produces({MediaType.APPLICATION_JSON})
+    //@Produces({"application/xml", "application/json"})
+    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
+    public List<Produto> getProdutoByAll() {
+        try {
+            List<Produto> listTP = (List<Produto>) filtro.retornaProduto("all", "all");
+            return listTP;
+        } catch (DAOException ex) {
+            Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

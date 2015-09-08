@@ -27,15 +27,14 @@ public class Filtro {
         return null;
     }
 
-    public Produto retornaProduto(String campo, Object valor) throws DAOException {
+    public Object retornaProduto(String campo, Object valor) throws DAOException {
         if (campo.equals("nome")) {
             return (Produto) jpa.findNamedQueryOB("Produto.findBy.nome", campo, "%" + valor + "%");
         } else if (campo.equals("estabelecimento")) {
-            System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-            System.out.println("" + campo + "\n" + valor);
             Produto prod = (Produto) jpa.findNamedQueryOB("Produto.findBy.estabelecimento.nome", campo, "%" + valor + "%");
-            System.out.println("ADSASDADSAD  " + prod);
             return prod;
+        } else if (campo.equals("all")) {
+            return (List<Produto>) jpa.findNamedQuery("Produto.findBy.All");
         }
         return null;
     }
