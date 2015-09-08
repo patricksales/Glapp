@@ -8,14 +8,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Patrick
  */
 @Entity
-@Singleton
+//@Singleton
+@XmlRootElement
 @NamedQueries({
+    @NamedQuery(name = "TipoProduto.findBy.All", query = "SELECT T FROM TipoProduto AS T"),
     @NamedQuery(name = "TipoProduto.findBy.idTipoProduto", query = "SELECT T FROM TipoProduto AS T WHERE T.idTipoProduto = :idTipoProduto"),
     @NamedQuery(name = "TipoProduto.findBy.descricao", query = "SELECT T FROM TipoProduto AS T WHERE T.descricao LIKE :descricao")})
 public class TipoProduto implements Serializable {

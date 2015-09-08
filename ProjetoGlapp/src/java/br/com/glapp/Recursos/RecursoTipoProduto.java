@@ -2,7 +2,9 @@ package br.com.glapp.Recursos;
 
 import br.com.glapp.Controle.JPA.Exception.DAOException;
 import br.com.glapp.Controle.JPA.GenericoJpaController;
+import br.com.glapp.Funcoes.Filtro;
 import br.com.glapp.Modelo.TipoProduto;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -28,11 +30,13 @@ import javax.ws.rs.core.MediaType;
 public class RecursoTipoProduto {
 
     //@PersistenceContext(unitName = "ProjetoGlappPU")
+    Filtro filtro;
     private GenericoJpaController jpa;
 
     public RecursoTipoProduto() {
         //EntityManagerFactory emf = ;
         jpa = new GenericoJpaController(Persistence.createEntityManagerFactory("ProjetoGlappPU"));
+        filtro = new Filtro(jpa);
     }
 
     @POST
@@ -71,6 +75,7 @@ public class RecursoTipoProduto {
     //@Produces({MediaType.APPLICATION_JSON})
     public TipoProduto getTipoProdutoById(@PathParam("id") Long id) {
         try {
+            System.out.println("PASSOU AQUI");
             TipoProduto tp = (TipoProduto) jpa.findNamedQueryOB("TipoProduto.findBy.idTipoProduto", "idTipoProduto", id);
             return tp;
         } catch (DAOException ex) {
@@ -81,11 +86,25 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("/procura")
-    @Produces({MediaType.APPLICATION_JSON})
-    public TipoProduto getTipoProdutoByDescricao(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
+    @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
+    public TipoProduto getTipoProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            TipoProduto tp = (TipoProduto) jpa.findNamedQueryOB("TipoProduto.findBy.descricao", "descricao", "%" + valor + "%");
-            return tp;
+            return (TipoProduto) filtro.retornaTipoProduto(campo, valor);
+        } catch (DAOException ex) {
+            Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @GET
+    @Path("/all")
+    //@Produces({MediaType.APPLICATION_JSON})
+    //@Produces({"application/xml", "application/json"})
+    @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
+    public List<TipoProduto> getTipoProdutoByAll() {
+        try {
+            List<TipoProduto> listTP = (List<TipoProduto>) filtro.retornaTipoProduto("all", "all");
+            return listTP;
         } catch (DAOException ex) {
             Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
