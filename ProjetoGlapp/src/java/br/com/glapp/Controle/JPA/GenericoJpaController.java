@@ -457,13 +457,10 @@ public class GenericoJpaController implements Serializable {
     public Object findNamedQueryOB(String namedQuery, String parametro, Object valorParametro) throws DAOException {
         EntityManager em = getEntityManager();
         try {
-            System.out.println("ENTITYMANAGER");
-            System.out.println("Valalal " + valorParametro);
             Query q = em.createNamedQuery(namedQuery/*, classe*/).setParameter(parametro, valorParametro);
-            System.out.println("ENTITYMANAGEsadR");
-            return q.getSingleResult();
-
-            //return em.createNamedQuery(namedQuery).setParameter(parametro, valorParametro).getResultList();
+            Object ob = q.getSingleResult();
+            System.out.println("OB: " + ob);
+            return ob;
         } catch (javax.persistence.NoResultException ex) {
             return null;
         } catch (Exception e) {

@@ -1,11 +1,16 @@
 package br.com.glapp.Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.inject.Singleton;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -19,8 +24,8 @@ import javax.persistence.OneToOne;
 @NamedQueries({
     @NamedQuery(name = "Produto.findBy.All", query = "SELECT P FROM Produto AS P"),
     @NamedQuery(name = "Produto.findBy.idProduto", query = "SELECT P FROM Produto AS P WHERE P.idProduto = :idProduto"),
-    @NamedQuery(name = "Produto.findBy.nome", query = "SELECT P FROM Produto AS P WHERE P.nome = :nome"),
-    @NamedQuery(name = "Produto.findBy.estabelecimento.nome", query = "SELECT P FROM Produto AS P WHERE P.estabelecimento.nome LIKE :estabelecimento")})
+    @NamedQuery(name = "Produto.findBy.nome", query = "SELECT P FROM Produto AS P WHERE P.nome LIKE :nome"),
+    @NamedQuery(name = "Produto.findBy.estabelecimento.nome", query = "SELECT P FROM Produto AS P INNER JOIN P.estabelecimentos AS EST WHERE  EST.nome LIKE :estabelecimento")})
 public class Produto implements Serializable {
 
     @Id
@@ -34,8 +39,10 @@ public class Produto implements Serializable {
     private boolean contemGluten;
     private boolean contemLactose;
     private double pesoQuant;
-    @OneToOne
-    private Empresa estabelecimento;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "produto_estabelecimento", joinColumns = @JoinColumn(name = "produto_idProduto"),
+            inverseJoinColumns = @JoinColumn(name = "estabelecimento_idEmpresa"))
+    private List<Empresa> estabelecimentos;
     @OneToOne
     private TipoProduto tipoProduto;
 
@@ -111,12 +118,12 @@ public class Produto implements Serializable {
         this.pesoQuant = pesoQuant;
     }
 
-    public Empresa getEstabelecimento() {
-        return estabelecimento;
+    public List<Empresa> getEstabelecimento() {
+        return estabelecimentos;
     }
 
-    public void setEstabelecimento(Empresa estabelecimento) {
-        this.estabelecimento = estabelecimento;
+    public void setEstabelecimento(List<Empresa> estabelecimentos) {
+        this.estabelecimentos = estabelecimentos;
     }
 
     public TipoProduto getTipoProduto() {

@@ -2,9 +2,11 @@ package br.com.glapp.Modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,6 +24,8 @@ public class Estabelecimento extends Empresa implements Serializable {
     private Date horarioAbertura;
     @Temporal(TemporalType.TIME)
     private Date horarioFechamento;
+    @ManyToMany(mappedBy = "estabelecimentos")
+    private List<Produto> produtos;
 
     public String getUnidade() {
         return unidade;
@@ -45,6 +49,14 @@ public class Estabelecimento extends Empresa implements Serializable {
 
     public void setHorarioFechamento(Date horarioFechamento) {
         this.horarioFechamento = horarioFechamento;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     public Estabelecimento() {

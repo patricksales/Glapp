@@ -38,7 +38,6 @@ public class RecursoProduto {
     }
 
     @POST
-    //@Override
     @Consumes({"application/xml", "application/json"})
     public void criar(Produto produto) {
         try {
@@ -51,7 +50,6 @@ public class RecursoProduto {
     }
 
     @PUT
-    //@Override
     @Consumes({"application/xml", "application/json"})
     public void editar(Produto produto) {
         try {
@@ -69,11 +67,11 @@ public class RecursoProduto {
 
     @GET
     @Path("{id}")
-    //@Produces({"application/xml", "application/json"})
-    //@Produces({MediaType.APPLICATION_JSON})
     public Produto getProdutoById(@PathParam("id") Long id) {
         try {
+            System.out.println("ENTROU AQUI");
             Produto prod = (Produto) jpa.findNamedQueryOB("Produto.findBy.idProduto", "idProduto", id);
+            System.out.println("EAN : " + prod.getCodigoEAN());
             return prod;
         } catch (DAOException ex) {
             Logger.getLogger(RecursoProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,8 +81,6 @@ public class RecursoProduto {
 
     @GET
     @Path("/procura")
-    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
-    //@Produces({"application/xml", "application/json"})
     public Produto getProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
             return (Produto) filtro.retornaProduto(campo, valor);
@@ -96,14 +92,13 @@ public class RecursoProduto {
 
     @GET
     @Path("/all")
-    //@Produces({MediaType.APPLICATION_JSON})
-    //@Produces({"application/xml", "application/json"})
-    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
     public List<Produto> getProdutoByAll() {
         try {
             List<Produto> listTP = (List<Produto>) filtro.retornaProduto("all", "all");
+            System.out.println("TAMANHO: " + listTP.size());
             return listTP;
         } catch (DAOException ex) {
+            System.out.println("ERROOOOO: " + ex.getMessage());
             Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

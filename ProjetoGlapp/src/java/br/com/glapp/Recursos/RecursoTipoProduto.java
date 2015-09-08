@@ -37,11 +37,11 @@ public class RecursoTipoProduto {
     public RecursoTipoProduto() {
         //EntityManagerFactory emf = ;
         jpa = new GenericoJpaController(Persistence.createEntityManagerFactory("ProjetoGlappPU"));
+        System.out.println("CRIOU EMF");
         filtro = new Filtro(jpa);
     }
 
     @POST
-    //@Override
     @Consumes({"application/xml", "application/json"})
     public void criar(TipoProduto tipoProduto) {
         try {
@@ -54,7 +54,6 @@ public class RecursoTipoProduto {
     }
 
     @PUT
-    //@Override
     @Consumes({"application/xml", "application/json"})
     public void editar(TipoProduto tipoProduto) {
         try {
@@ -72,10 +71,8 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("{id}")
-    //@Produces({"application/json", "application/xml"})
     public TipoProduto getTipoProdutoById(@PathParam("id") Long id) {
         try {
-            System.out.println("PASSOU AQUI");
             TipoProduto tp = (TipoProduto) jpa.findNamedQueryOB("TipoProduto.findBy.idTipoProduto", "idTipoProduto", id);
             return tp;
         } catch (DAOException ex) {
@@ -86,7 +83,6 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("/procura")
-    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
     public TipoProduto getTipoProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
             return (TipoProduto) filtro.retornaTipoProduto(campo, valor);
@@ -98,9 +94,6 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("/all")
-    //@Produces({MediaType.APPLICATION_JSON})
-    //@Produces({"application/xml", "application/json"})
-    //@Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
     public List<TipoProduto> getTipoProdutoByAll() {
         try {
             List<TipoProduto> listTP = (List<TipoProduto>) filtro.retornaTipoProduto("all", "all");
