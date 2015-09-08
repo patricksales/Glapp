@@ -13,21 +13,7 @@ import javax.persistence.Persistence;
 public class Teste {
 
     public static void main(String args[]) {
-        //  EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetoGlappPU");
-
-        try {
-            Gson gson = new Gson();
-            /*            BufferedReader br = new BufferedReader(
-             new FileReader("c:\\file.json"));
-             */
-            //convert the json string back to object
-            TipoProduto obj = gson.fromJson("{\"descricao\":\"Farinha\",\"idTipoProduto\":2}", TipoProduto.class);
-
-            System.out.println(obj);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetoGlappPU");
         System.out.println("");
     }
 
