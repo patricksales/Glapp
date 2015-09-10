@@ -3,19 +3,19 @@ package br.com.glapp.Recursos;
 import br.com.glapp.Controle.JPA.Exception.DAOException;
 import br.com.glapp.Controle.JPA.GenericoJpaController;
 import br.com.glapp.Funcoes.Filtro;
-import br.com.glapp.Modelo.TipoProduto;
+import br.com.glapp.Modelo.Restaurante;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.Path;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -23,41 +23,39 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Patrick
+ * @author Patrick Sales
  */
-@Path("/tipoproduto")
+@Path("/restaurante")
 @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
-public class RecursoTipoProduto {
+public class RecursoRestaurante {
 
     @PersistenceContext(unitName = "ProjetoGlappPU")
     Filtro filtro;
     private final GenericoJpaController jpa;
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetoGlappPU");
 
-    public RecursoTipoProduto() {
+    public RecursoRestaurante() {
         jpa = new GenericoJpaController(emf);
         filtro = new Filtro(jpa);
     }
 
     @POST
     @Consumes({"application/xml", "application/json"})
-    public void criar(TipoProduto tipoProduto) {
+    public void criar(Restaurante restaurante) {
         try {
-            //System.out.println("ERRO: " + tipoProduto.toString());
-            jpa.criar(tipoProduto);
+            jpa.criar(restaurante);
         } catch (DAOException ex) {
-            System.out.println("ERRO: " + ex.getMessage());
-            Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecursoRestaurante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @PUT
     @Consumes({"application/xml", "application/json"})
-    public void editar(TipoProduto tipoProduto) {
+    public void editar(Restaurante restaurante) {
         try {
-            jpa.editar(tipoProduto);
+            jpa.editar(restaurante);
         } catch (DAOException ex) {
-            Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecursoRestaurante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -69,36 +67,35 @@ public class RecursoTipoProduto {
 
     @GET
     @Path("{id}")
-    public TipoProduto getTipoProdutoById(@PathParam("id") Long id) {
+    public Restaurante getRestauranteById(@PathParam("id") Long id) {
         try {
-            return (TipoProduto) filtro.retornaTipoProduto("idTipoProduto", id);
+            Restaurante rest = (Restaurante) filtro.retornaRestaurante("idRestaurante", id);
+            return rest;
         } catch (DAOException ex) {
-            Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecursoRestaurante.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @GET
     @Path("/procura")
-    public TipoProduto getTipoProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
+    public Restaurante getRestauranteByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            return (TipoProduto) filtro.retornaTipoProduto(campo, valor);
+            return (Restaurante) filtro.retornaRestaurante(campo, valor);
         } catch (DAOException ex) {
-            Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecursoRestaurante.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @GET
     @Path("/all")
-    public List<TipoProduto> getTipoProdutoByAll() {
+    public List<Restaurante> getRestauranteByAll() {
         try {
-            List<TipoProduto> listTP = (List<TipoProduto>) filtro.retornaTipoProduto("all", "all");
-            return listTP;
+            return (List<Restaurante>) filtro.retornaRestaurante("all", "all");
         } catch (DAOException ex) {
-            Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RecursoRestaurante.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-
 }

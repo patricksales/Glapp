@@ -6,7 +6,10 @@ import java.util.List;
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,6 +20,13 @@ import javax.persistence.TemporalType;
 @Entity
 @DiscriminatorValue(value = "Estabelecimento")
 @Singleton
+@NamedQueries({
+    @NamedQuery(name = "Estabelecimento.findBy.All", query = "SELECT E FROM Estabelecimento AS E"),
+    @NamedQuery(name = "Estabelecimento.findBy.idEstabelecimento", query = "SELECT E FROM Estabelecimento AS E WHERE E.idEmpresa = :idEstabelecimento"),
+    @NamedQuery(name = "Estabelecimento.findBy.nome", query = "SELECT E FROM Estabelecimento AS E WHERE E.nome LIKE :nome"),
+    @NamedQuery(name = "Estabelecimento.findBy.cidade", query = "SELECT E FROM Estabelecimento AS E WHERE E.cidade LIKE :cidade"),
+    @NamedQuery(name = "Estabelecimento.findBy.endereco", query = "SELECT E FROM Estabelecimento AS E WHERE  E.endereco LIKE :endereco"),
+    @NamedQuery(name = "Estabelecimento.findBy.unidade", query = "SELECT E FROM Estabelecimento AS E WHERE E.unidade LIKE :unidade")})
 public class Estabelecimento extends Empresa implements Serializable {
 
     private String unidade;
@@ -24,7 +34,7 @@ public class Estabelecimento extends Empresa implements Serializable {
     private Date horarioAbertura;
     @Temporal(TemporalType.TIME)
     private Date horarioFechamento;
-    @ManyToMany(mappedBy = "estabelecimentos")
+    @ManyToMany(mappedBy = "estabelecimentos", fetch = FetchType.EAGER)
     private List<Produto> produtos;
 
     public String getUnidade() {
