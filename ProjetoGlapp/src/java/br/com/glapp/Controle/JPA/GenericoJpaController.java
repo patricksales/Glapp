@@ -1,9 +1,7 @@
 package br.com.glapp.Controle.JPA;
 
 import br.com.glapp.Controle.JPA.Exception.DAOException;
-import br.com.glapp.Controle.JPA.Exception.NonexistentEntityException;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -12,7 +10,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.RollbackException;
 
 /**
  *
@@ -279,9 +276,8 @@ public class GenericoJpaController implements Serializable {
         }
     }
 
-    public void deletar(Object objeto, Object idObjeto, Class classe) throws DAOException {
+    public void deletar(Object idObjeto, Class classe) throws DAOException {
         EntityManager em = null;
-        DAOException error = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -289,12 +285,12 @@ public class GenericoJpaController implements Serializable {
             try {
                 object = em.getReference(classe, idObjeto);
             } catch (EntityNotFoundException enfe) {
-                throw new DAOException("The" + objeto.getClass().getSimpleName() + " with id " + idObjeto + " no longer exists.", enfe);
+                throw new DAOException("The" + classe.getClass().getSimpleName() + " with id " + idObjeto + " no longer exists.", enfe);
             }
             em.remove(object);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            System.out.println("Erro: " + ex.getMessage());
+            throw new DAOException(ex.getMessage(), "Deletar", ex.getCause());
         } finally {
             if (em != null) {
                 em.close();

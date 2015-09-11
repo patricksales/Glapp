@@ -62,7 +62,11 @@ public class RecursoProduto {
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Long id) {
-        ///
+        try {
+            jpa.deletar(id, Produto.class);
+        } catch (DAOException ex) {
+            Logger.getLogger(RecursoProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @GET

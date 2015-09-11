@@ -15,13 +15,14 @@ import javax.persistence.Persistence;
  * @author Patrick
  */
 public class Teste {
-    
+
     public static void main(String args[]) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetoGlappPU");
         GenericoJpaController jpa = new GenericoJpaController(emf);
         Produto prod;
         List<Produto> list;
         try {
+            //jpa.deletar(3L, TipoProduto.class);
             Estabelecimento est = (Estabelecimento) jpa.findNamedQueryOB("Estabelecimento.findBy.idEstabelecimento", "idEstabelecimento", Long.valueOf("1"));
             prod = (Produto) jpa.findNamedQueryOB("Produto.findBy.nome", "nome", "%" + "sem" + "%");
             list = (List<Produto>) jpa.findNamedQuery("Produto.findBy.All");
@@ -31,5 +32,5 @@ public class Teste {
         System.out.println("");
         System.exit(2);
     }
-    
+
 }
