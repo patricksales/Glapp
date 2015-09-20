@@ -22,6 +22,7 @@ public class Teste {
         Produto prod;
         List<Produto> list;
         try {
+            System.out.println("" + jpa.findNamedQuery("Estabelecimento.findBy.All"));
             //jpa.deletar(3L, TipoProduto.class);
             Estabelecimento est = (Estabelecimento) jpa.findNamedQueryOB("Estabelecimento.findBy.idEstabelecimento", "idEstabelecimento", Long.valueOf("1"));
             prod = (Produto) jpa.findNamedQueryOB("Produto.findBy.nome", "nome", "%" + "sem" + "%");

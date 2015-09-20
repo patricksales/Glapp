@@ -30,9 +30,9 @@ import javax.persistence.TemporalType;
 public class Estabelecimento extends Empresa implements Serializable {
 
     private String unidade;
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date horarioAbertura;
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date horarioFechamento;
     @ManyToMany(mappedBy = "estabelecimentos", fetch = FetchType.EAGER)
     private List<Produto> produtos;
