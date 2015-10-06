@@ -27,17 +27,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/tipoproduto")
 @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
-public class RecursoTipoProduto {
-
-    @PersistenceContext(unitName = "ProjetoGlappPU")
-    Filtro filtro;
-    private final GenericoJpaController jpa;
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetoGlappPU");
-
-    public RecursoTipoProduto() {
-        jpa = new GenericoJpaController(emf);
-        filtro = new Filtro(jpa);
-    }
+public class RecursoTipoProduto extends ConfiguracaoDaAplicacao {
 
     @POST
     @Consumes({"application/xml", "application/json"})

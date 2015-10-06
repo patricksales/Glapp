@@ -1,15 +1,10 @@
 package br.com.glapp.Recursos;
 
 import br.com.glapp.Controle.JPA.Exception.DAOException;
-import br.com.glapp.Controle.JPA.GenericoJpaController;
-import br.com.glapp.Funcoes.Filtro;
 import br.com.glapp.Modelo.Restaurante;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,17 +22,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/restaurante")
 @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
-public class RecursoRestaurante {
-
-    @PersistenceContext(unitName = "ProjetoGlappPU")
-    Filtro filtro;
-    private final GenericoJpaController jpa;
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProjetoGlappPU");
-
-    public RecursoRestaurante() {
-        jpa = new GenericoJpaController(emf);
-        filtro = new Filtro(jpa);
-    }
+public class RecursoRestaurante extends ConfiguracaoDaAplicacao {
 
     @POST
     @Consumes({"application/xml", "application/json"})

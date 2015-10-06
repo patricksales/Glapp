@@ -1,14 +1,11 @@
 package br.com.glapp.Recursos;
 
 import br.com.glapp.Controle.JPA.Exception.DAOException;
-import br.com.glapp.Controle.JPA.GenericoJpaController;
-import br.com.glapp.Funcoes.Filtro;
 import br.com.glapp.Modelo.Produto;
 import java.util.List;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.Persistence;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -26,16 +23,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/produto")
 @Produces({MediaType.APPLICATION_JSON + ";charset=utf-8"})
-public class RecursoProduto {
-
-    //@PersistenceContext(unitName = "ProjetoGlappPU")
-    Filtro filtro;
-    private GenericoJpaController jpa;
-
-    public RecursoProduto() {
-        jpa = new GenericoJpaController(Persistence.createEntityManagerFactory("ProjetoGlappPU"));
-        filtro = new Filtro(jpa);
-    }
+public class RecursoProduto extends ConfiguracaoDaAplicacao {
 
     @POST
     @Consumes({"application/xml", "application/json"})
