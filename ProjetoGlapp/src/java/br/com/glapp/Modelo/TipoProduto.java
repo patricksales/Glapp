@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TipoProduto implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long idTipoProduto;
     private String descricao;
 

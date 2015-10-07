@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/ProjetoGlapp"/>
+<Context antiJARLocking="true" path="/ProjetoGlapp">
+  <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="GlappPostGree" password="zokyJoulGQ9VdbINU7RGJWu2HC" type="javax.sql.DataSource" url="jdbc:postgresql://ec2-54-197-241-24.compute-1.amazonaws.com:5432/d93cql5fif9br2" username="dkbmhkzdjvycal"/>
+</Context>

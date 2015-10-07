@@ -18,4 +18,19 @@
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
         </properties>
     </persistence-unit>
+    <persistence-unit name="default">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>br.com.glapp.Modelo.Empresa</class>
+        <class>br.com.glapp.Modelo.Estabelecimento</class>
+        <class>br.com.glapp.Modelo.Produto</class>
+        <class>br.com.glapp.Modelo.Restaurante</class>
+        <class>br.com.glapp.Modelo.TipoProduto</class>
+        <properties>
+            <!--<property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>-->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
 </persistence>
