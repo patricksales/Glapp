@@ -15,6 +15,7 @@ $(document).ready(function () {
     */
     var preencherPagina = function(conteudoHTML){
         $("#conteudo").html(conteudoHTML);
+        ativarCollapsible();
     };
     
     
@@ -73,6 +74,12 @@ $(document).ready(function () {
     var inicializarPagina = function(){
         //paginaInicial();
         vincularEventos();
+    };
+    
+    var ativarCollapsible = function(){
+        $('.collapsible').collapsible({
+            accordion: true // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
     };
     
     //Só chama essa função para inicializar o que precisa na página.
