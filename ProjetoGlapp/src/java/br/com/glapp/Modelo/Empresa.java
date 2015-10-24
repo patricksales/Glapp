@@ -1,6 +1,7 @@
 package br.com.glapp.Modelo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -31,6 +32,8 @@ public abstract class Empresa implements Serializable {
     private String estado;
     private String telefone;
     private String site;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     public Long getIdEmpresa() {
         return idEmpresa;
@@ -86,6 +89,22 @@ public abstract class Empresa implements Serializable {
 
     public void setSite(String site) {
         this.site = site;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
     }
 
 }
