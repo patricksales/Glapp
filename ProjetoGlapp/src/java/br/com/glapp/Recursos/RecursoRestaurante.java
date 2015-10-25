@@ -56,10 +56,9 @@ public class RecursoRestaurante extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("{id}")
-    public Restaurante getRestauranteById(@PathParam("id") Long id) {
+    public List<Restaurante> getRestauranteById(@PathParam("id") Long id) {
         try {
-            Restaurante rest = (Restaurante) filtro.retornaRestaurante("idRestaurante", id);
-            return rest;
+            return filtro.retornaRestaurante("idRestaurante", id);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoRestaurante.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,9 +67,9 @@ public class RecursoRestaurante extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("/procura")
-    public Restaurante getRestauranteByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
+    public List<Restaurante> getRestauranteByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            return (Restaurante) filtro.retornaRestaurante(campo, valor);
+            return filtro.retornaRestaurante(campo, valor);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoRestaurante.class.getName()).log(Level.SEVERE, null, ex);
         }

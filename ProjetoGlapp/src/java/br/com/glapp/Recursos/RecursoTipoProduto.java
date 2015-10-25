@@ -1,15 +1,10 @@
 package br.com.glapp.Recursos;
 
 import br.com.glapp.Controle.JPA.Exception.DAOException;
-import br.com.glapp.Controle.JPA.GenericoJpaController;
-import br.com.glapp.Funcoes.Filtro;
 import br.com.glapp.Modelo.TipoProduto;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Path;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -63,9 +58,9 @@ public class RecursoTipoProduto extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("{id}")
-    public TipoProduto getTipoProdutoById(@PathParam("id") Long id) {
+    public List<TipoProduto> getTipoProdutoById(@PathParam("id") Long id) {
         try {
-            return (TipoProduto) filtro.retornaTipoProduto("idTipoProduto", id);
+            return filtro.retornaTipoProduto("idTipoProduto", id);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,9 +69,9 @@ public class RecursoTipoProduto extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("/procura")
-    public TipoProduto getTipoProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
+    public List<TipoProduto> getTipoProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            return (TipoProduto) filtro.retornaTipoProduto(campo, valor);
+            return filtro.retornaTipoProduto(campo, valor);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,8 +82,7 @@ public class RecursoTipoProduto extends ConfiguracaoDaAplicacao {
     @Path("/all")
     public List<TipoProduto> getTipoProdutoByAll() {
         try {
-            List<TipoProduto> listTP = (List<TipoProduto>) filtro.retornaTipoProduto("all", "all");
-            return listTP;
+            return filtro.retornaTipoProduto("all", "all");
         } catch (DAOException ex) {
             Logger.getLogger(RecursoTipoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }

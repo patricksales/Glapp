@@ -29,7 +29,6 @@ public class RecursoProduto extends ConfiguracaoDaAplicacao {
     @Consumes({"application/xml", "application/json"})
     public void criar(Produto produto) {
         try {
-            //System.out.println("ERRO: " + tipoProduto.toString());
             jpa.criar(produto);
         } catch (DAOException ex) {
             System.out.println("ERRO: " + ex.getMessage());
@@ -59,12 +58,9 @@ public class RecursoProduto extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("{id}")
-    public Produto getProdutoById(@PathParam("id") Long id) {
+    public List<Produto> getProdutoById(@PathParam("id") Long id) {
         try {
-            System.out.println("ENTROU AQUI");
-            Produto prod = (Produto) jpa.findNamedQueryOB("Produto.findBy.idProduto", "idProduto", id);
-            System.out.println("EAN : " + prod.getCodigoEAN());
-            return prod;
+            return jpa.findNamedQuery("Produto.findBy.idProduto", "idProduto", id);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,9 +69,9 @@ public class RecursoProduto extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("/procura")
-    public Produto getProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
+    public List<Produto> getProdutoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            return (Produto) filtro.retornaProduto(campo, valor);
+            return filtro.retornaProduto(campo, valor);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }

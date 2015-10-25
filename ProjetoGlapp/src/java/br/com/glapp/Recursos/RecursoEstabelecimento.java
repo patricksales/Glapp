@@ -56,10 +56,9 @@ public class RecursoEstabelecimento extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("{id}")
-    public Estabelecimento getEstabelecimentoById(@PathParam("id") Long id) {
+    public List<Estabelecimento> getEstabelecimentoById(@PathParam("id") Long id) {
         try {
-            Estabelecimento rest = (Estabelecimento) filtro.retornaEstabelecimento("idEstabelecimento", id);
-            return rest;
+            return filtro.retornaEstabelecimento("idEstabelecimento", id);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoEstabelecimento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,9 +67,9 @@ public class RecursoEstabelecimento extends ConfiguracaoDaAplicacao {
 
     @GET
     @Path("/procura")
-    public Estabelecimento getEstabelecimentoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
+    public List<Estabelecimento> getEstabelecimentoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            return (Estabelecimento) filtro.retornaEstabelecimento(campo, valor);
+            return filtro.retornaEstabelecimento(campo, valor);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoEstabelecimento.class.getName()).log(Level.SEVERE, null, ex);
         }
