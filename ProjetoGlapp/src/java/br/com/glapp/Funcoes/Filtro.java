@@ -35,6 +35,8 @@ public class Filtro {
     public List<Produto> retornaProduto(String campo, Object valor) throws DAOException {
         if (campo.equals("nome")) {
             return jpa.findNamedQuery("Produto.findBy.nome", campo, "%" + valor + "%");
+        } else if (campo.equals("codigoEAN")) {
+            return jpa.findNamedQuery("Produto.findBy.codigoEAN", campo, "%" + valor + "%");
         } else if (campo.equals("estabelecimento")) {
             return jpa.findNamedQuery("Produto.findBy.estabelecimento.nome", campo, "%" + valor + "%");
         } else if (campo.equals("all")) {

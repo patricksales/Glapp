@@ -25,6 +25,7 @@ import javax.persistence.OneToOne;
     @NamedQuery(name = "Produto.findBy.All", query = "SELECT P FROM Produto AS P"),
     @NamedQuery(name = "Produto.findBy.idProduto", query = "SELECT P FROM Produto AS P WHERE P.idProduto = :idProduto"),
     @NamedQuery(name = "Produto.findBy.nome", query = "SELECT P FROM Produto AS P WHERE P.nome LIKE :nome"),
+    @NamedQuery(name = "Produto.findBy.codigoEAN", query = "SELECT P FROM Produto AS P WHERE P.codigoEAN LIKE :codigoEAN"),
     @NamedQuery(name = "Produto.findBy.estabelecimento.nome", query = "SELECT P FROM Produto AS P INNER JOIN P.estabelecimentos AS EST WHERE  EST.nome LIKE :estabelecimento")})
 public class Produto implements Serializable {
 
