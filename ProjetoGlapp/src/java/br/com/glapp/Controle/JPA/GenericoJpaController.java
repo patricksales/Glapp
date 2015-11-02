@@ -320,7 +320,6 @@ public class GenericoJpaController implements Serializable {
             return q.getResultList();
             //return em.createNamedQuery(namedQuery).setParameter(parametro, valorParametro).getResultList();
         } catch (Exception e) {
-            em.getTransaction().rollback();
             throw new DAOException("FIND,NAMED QUERY(JPA)", e.getMessage(), e);
         } finally {
             em.close();

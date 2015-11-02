@@ -1,6 +1,7 @@
 package br.com.glapp.Modelo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Singleton;
@@ -12,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -26,7 +28,14 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Estabelecimento.findBy.nome", query = "SELECT E FROM Estabelecimento AS E WHERE E.nome LIKE :nome"),
     @NamedQuery(name = "Estabelecimento.findBy.cidade", query = "SELECT E FROM Estabelecimento AS E WHERE E.cidade LIKE :cidade"),
     @NamedQuery(name = "Estabelecimento.findBy.endereco", query = "SELECT E FROM Estabelecimento AS E WHERE  E.endereco LIKE :endereco"),
-    @NamedQuery(name = "Estabelecimento.findBy.unidade", query = "SELECT E FROM Estabelecimento AS E WHERE E.unidade LIKE :unidade")})
+    @NamedQuery(name = "Estabelecimento.findBy.unidade", query = "SELECT E FROM Estabelecimento AS E WHERE E.unidade LIKE :unidade"),
+    @NamedQuery(name = "Estabelecimento.findBy.proximidade", query = "SELECT NEW Estabelecimento(E, (((E.latitude - :latUsuario)*(E.latitude - :latUsuario)) + ((E.longitude - :longUsuario)*(E.longitude - :longUsuario)) )) FROM Estabelecimento AS E where E.longitude IS NOT NULL AND E.latitude IS NOT NULL ORDER BY (((E.latitude - :latUsuario)*(E.latitude - :latUsuario)) + ((E.longitude - :longUsuario)*(E.longitude - :longUsuario)))"),})
+/*@NamedQuery(name = "Empresa.findBy.localidade", query = "SELECT E , FROM Empresa AS E WHERE E.latitude IS NOT NULL AND E.longitude IS NOT NULL ORDER BY E")
+ SELECT *
+ ,SQRT(POWER([latitude]-(?), 2)+POWER([longitude]-(?), 2)) as distancia
+ FROM [Glapp].[dbo].[Empresa]
+ WHERE [latitude] is not null and [longitude] is not null
+ order by [distancia]*/
 public class Estabelecimento extends Empresa implements Serializable {
 
     private String unidade;
@@ -36,6 +45,9 @@ public class Estabelecimento extends Empresa implements Serializable {
     private Date horarioFechamento;
     @ManyToMany(mappedBy = "estabelecimentos", fetch = FetchType.EAGER)
     private List<Produto> produtos;
+
+    @Transient
+    private BigDecimal distancia;
 
     public String getUnidade() {
         return unidade;
@@ -69,7 +81,32 @@ public class Estabelecimento extends Empresa implements Serializable {
         this.produtos = produtos;
     }
 
+    public BigDecimal getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(BigDecimal distancia) {
+        this.distancia = distancia;
+    }
+
     public Estabelecimento() {
+    }
+
+    public Estabelecimento(Estabelecimento estab, BigDecimal distancia) {
+        super.setTelefone(estab.getTelefone());
+        super.setSite(estab.getSite());
+        super.setNome(estab.getNome());
+        super.setLongitude(estab.getLongitude());
+        super.setLatitude(estab.getLatitude());
+        super.setIdEmpresa(estab.getIdEmpresa());
+        super.setEstado(estab.getEstado());
+        super.setEndereco(estab.getEndereco());
+        super.setCidade(estab.getCidade());
+        this.horarioAbertura = estab.getHorarioAbertura();
+        this.horarioFechamento = estab.getHorarioFechamento();
+        this.produtos = estab.getProdutos();
+        this.distancia = distancia;
+        this.unidade = estab.getUnidade();
     }
 
 }
