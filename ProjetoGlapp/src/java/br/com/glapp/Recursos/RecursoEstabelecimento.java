@@ -58,7 +58,7 @@ public class RecursoEstabelecimento extends ConfiguracaoDaAplicacao {
     @Path("{id}")
     public List<Estabelecimento> getEstabelecimentoById(@PathParam("id") Long id) {
         try {
-            return filtro.retornaEstabelecimento("idEstabelecimento", id);
+            return filtro.retornaEstabelecimento("idEstabelecimento", id, null, null);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoEstabelecimento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,7 +69,18 @@ public class RecursoEstabelecimento extends ConfiguracaoDaAplicacao {
     @Path("/procura")
     public List<Estabelecimento> getEstabelecimentoByOutros(@QueryParam("campo") String campo, @QueryParam("valor") String valor) {
         try {
-            return filtro.retornaEstabelecimento(campo, valor);
+            return filtro.retornaEstabelecimento(campo, valor, null, null);
+        } catch (DAOException ex) {
+            Logger.getLogger(RecursoEstabelecimento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @GET
+    @Path("/distancia")
+    public List<Estabelecimento> getEstabelecimentoByOutros2(@QueryParam("campo") String campo, @QueryParam("valor") String valor, @QueryParam("campo2") String campo2, @QueryParam("valor2") String valor2) {
+        try {
+            return filtro.retornaEstabelecimento(campo, valor, campo2, valor2);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoEstabelecimento.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,7 +91,7 @@ public class RecursoEstabelecimento extends ConfiguracaoDaAplicacao {
     @Path("/all")
     public List<Estabelecimento> getEstabelecimentoByAll() {
         try {
-            return (List<Estabelecimento>) filtro.retornaEstabelecimento("all", "all");
+            return (List<Estabelecimento>) filtro.retornaEstabelecimento("all", "all", null, null);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoEstabelecimento.class.getName()).log(Level.SEVERE, null, ex);
         }

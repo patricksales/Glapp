@@ -6,6 +6,7 @@ import br.com.glapp.Modelo.Estabelecimento;
 import br.com.glapp.Modelo.Produto;
 import br.com.glapp.Modelo.Restaurante;
 import br.com.glapp.Modelo.TipoProduto;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -62,7 +63,7 @@ public class Filtro {
         }
     }
 
-    public List<Estabelecimento> retornaEstabelecimento(String campo, Object valor) throws DAOException {
+    public List<Estabelecimento> retornaEstabelecimento(String campo, Object valor, String campo2, Object valor2) throws DAOException {
         if (campo.equals("idEstabelecimento")) {
             return jpa.findNamedQuery("Estabelecimento.findBy.idEstabelecimento", campo, valor);
         } else if (campo.equals("nome")) {
@@ -75,6 +76,8 @@ public class Filtro {
             return jpa.findNamedQuery("Estabelecimento.findBy.All");
         } else if (campo.equals("unidade")) {
             return jpa.findNamedQuery("Estabelecimento.findBy.unidade", campo, "%" + valor + "%");
+        } else if (campo.equals("latitude") && campo2.equals("longitude")) {
+            return jpa.findNamedQuery("Estabelecimento.findBy.proximidade", "latUsuario", new BigDecimal(String.valueOf(valor)), "longUsuario", new BigDecimal(String.valueOf(valor2)));
         } else {
             return null;
         }
