@@ -29,7 +29,7 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Estabelecimento.findBy.cidade", query = "SELECT E FROM Estabelecimento AS E WHERE E.cidade LIKE :cidade"),
     @NamedQuery(name = "Estabelecimento.findBy.endereco", query = "SELECT E FROM Estabelecimento AS E WHERE  E.endereco LIKE :endereco"),
     @NamedQuery(name = "Estabelecimento.findBy.unidade", query = "SELECT E FROM Estabelecimento AS E WHERE E.unidade LIKE :unidade"),
-    @NamedQuery(name = "Estabelecimento.findBy.proximidade", query = "SELECT NEW Estabelecimento(E, (((E.latitude - :latUsuario)*(E.latitude - :latUsuario)) + ((E.longitude - :longUsuario)*(E.longitude - :longUsuario)) )) FROM Estabelecimento AS E where E.longitude IS NOT NULL AND E.latitude IS NOT NULL ORDER BY (((E.latitude - :latUsuario)*(E.latitude - :latUsuario)) + ((E.longitude - :longUsuario)*(E.longitude - :longUsuario)))"),})
+    @NamedQuery(name = "Estabelecimento.findBy.proximidade", query = "SELECT NEW Estabelecimento(E, SQRT((((E.latitude - :latUsuario)*(E.latitude - :latUsuario)) + ((E.longitude - :longUsuario)*(E.longitude - :longUsuario)))) ) FROM Estabelecimento AS E where E.longitude IS NOT NULL AND E.latitude IS NOT NULL ORDER BY (((E.latitude - :latUsuario)*(E.latitude - :latUsuario)) + ((E.longitude - :longUsuario)*(E.longitude - :longUsuario)))"),})
 /*@NamedQuery(name = "Empresa.findBy.localidade", query = "SELECT E , FROM Empresa AS E WHERE E.latitude IS NOT NULL AND E.longitude IS NOT NULL ORDER BY E")
  SELECT *
  ,SQRT(POWER([latitude]-(?), 2)+POWER([longitude]-(?), 2)) as distancia
@@ -47,7 +47,7 @@ public class Estabelecimento extends Empresa implements Serializable {
     private List<Produto> produtos;
 
     @Transient
-    private BigDecimal distancia;
+    private Double distancia;
 
     public String getUnidade() {
         return unidade;
@@ -81,18 +81,18 @@ public class Estabelecimento extends Empresa implements Serializable {
         this.produtos = produtos;
     }
 
-    public BigDecimal getDistancia() {
+    public Double getDistancia() {
         return distancia;
     }
 
-    public void setDistancia(BigDecimal distancia) {
+    public void setDistancia(Double distancia) {
         this.distancia = distancia;
     }
 
     public Estabelecimento() {
     }
 
-    public Estabelecimento(Estabelecimento estab, BigDecimal distancia) {
+    public Estabelecimento(Estabelecimento estab, Double distancia) {
         super.setTelefone(estab.getTelefone());
         super.setSite(estab.getSite());
         super.setNome(estab.getNome());
@@ -104,7 +104,7 @@ public class Estabelecimento extends Empresa implements Serializable {
         super.setCidade(estab.getCidade());
         this.horarioAbertura = estab.getHorarioAbertura();
         this.horarioFechamento = estab.getHorarioFechamento();
-        this.produtos = estab.getProdutos();
+        this.produtos = estab.getProdutos();        
         this.distancia = distancia;
         this.unidade = estab.getUnidade();
     }
