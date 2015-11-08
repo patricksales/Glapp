@@ -1,14 +1,10 @@
 package br.com.glapp.Modelo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import javax.inject.Singleton;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
@@ -43,8 +39,9 @@ public class Estabelecimento extends Empresa implements Serializable {
     private Date horarioAbertura;
     @Temporal(TemporalType.TIMESTAMP)
     private Date horarioFechamento;
-    @ManyToMany(mappedBy = "estabelecimentos", fetch = FetchType.EAGER)
-    private List<Produto> produtos;
+    /*@ManyToMany(mappedBy = "estabelecimentos", fetch = FetchType.EAGER)
+     @Fetch(FetchMode.SUBSELECT)
+     private List<Produto> produtos;*/
 
     @Transient
     private Double distancia;
@@ -72,14 +69,14 @@ public class Estabelecimento extends Empresa implements Serializable {
     public void setHorarioFechamento(Date horarioFechamento) {
         this.horarioFechamento = horarioFechamento;
     }
+    /*
+     public List<Produto> getProdutos() {
+     return produtos;
+     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
+     public void setProdutos(List<Produto> produtos) {
+     this.produtos = produtos;
+     }*/
 
     public Double getDistancia() {
         return distancia;
@@ -104,7 +101,7 @@ public class Estabelecimento extends Empresa implements Serializable {
         super.setCidade(estab.getCidade());
         this.horarioAbertura = estab.getHorarioAbertura();
         this.horarioFechamento = estab.getHorarioFechamento();
-        this.produtos = estab.getProdutos();        
+        //this.produtos = estab.getProdutos();
         this.distancia = distancia;
         this.unidade = estab.getUnidade();
     }

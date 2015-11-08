@@ -73,7 +73,9 @@ public class Filtro {
         } else if (campo.equals("endereco")) {
             return jpa.findNamedQuery("Estabelecimento.findBy.endereco", campo, "%" + valor + "%");
         } else if (campo.equals("all")) {
-            return jpa.findNamedQuery("Estabelecimento.findBy.All");
+            List<Estabelecimento> ssts = jpa.findNamedQuery("Estabelecimento.findBy.All");
+            System.out.println("RESRHGJHFJEHF:" + ssts);
+            return ssts;
         } else if (campo.equals("unidade")) {
             return jpa.findNamedQuery("Estabelecimento.findBy.unidade", campo, "%" + valor + "%");
         } else if (campo.equals("latitude") && campo2.equals("longitude")) {

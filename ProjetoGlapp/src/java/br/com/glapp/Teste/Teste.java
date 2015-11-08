@@ -50,6 +50,8 @@ public class Teste {
         Produto prod;
         List<Produto> list;
         try {
+            jpa.findNamedQuery("Estabelecimento.findBy.All");
+            
             Estabelecimento estab = (Estabelecimento) jpa.findNamedQueryOB("Estabelecimento.findBy.idEstabelecimento", "idEstabelecimento", 1L);
             System.out.println("" + jpa.findNamedQuery("Estabelecimento.findBy.proximidade", "latUsuario", estab.getLatitude(), "longUsuario", estab.getLongitude()));
             //jpa.deletar(3L, TipoProduto.class);

@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -43,6 +45,7 @@ public class Produto implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "produto_estabelecimento", joinColumns = @JoinColumn(name = "produto_idProduto"),
             inverseJoinColumns = @JoinColumn(name = "estabelecimento_idEmpresa"))
+    @Fetch(FetchMode.SUBSELECT)    
     private List<Empresa> estabelecimentos;
     @OneToOne
     private TipoProduto tipoProduto;
