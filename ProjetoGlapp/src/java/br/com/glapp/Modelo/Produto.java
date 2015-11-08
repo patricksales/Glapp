@@ -45,8 +45,8 @@ public class Produto implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "produto_estabelecimento", joinColumns = @JoinColumn(name = "produto_idProduto"),
             inverseJoinColumns = @JoinColumn(name = "estabelecimento_idEmpresa"))
-    @Fetch(FetchMode.SUBSELECT)    
-    private List<Empresa> estabelecimentos;
+    @Fetch(FetchMode.SUBSELECT)
+    private List<Estabelecimento> estabelecimentos;
     @OneToOne
     private TipoProduto tipoProduto;
 
@@ -121,12 +121,21 @@ public class Produto implements Serializable {
     public void setPesoQuant(double pesoQuant) {
         this.pesoQuant = pesoQuant;
     }
+    /*
+     public List<Empresa> getEstabelecimento() {
+     return estabelecimentos;
+     }
 
-    public List<Empresa> getEstabelecimento() {
+     public void setEstabelecimento(List<Empresa> estabelecimentos) {
+     this.estabelecimentos = estabelecimentos;
+     }
+     */
+
+    public List<Estabelecimento> getEstabelecimentos() {
         return estabelecimentos;
     }
 
-    public void setEstabelecimento(List<Empresa> estabelecimentos) {
+    public void setEstabelecimentos(List<Estabelecimento> estabelecimentos) {
         this.estabelecimentos = estabelecimentos;
     }
 
