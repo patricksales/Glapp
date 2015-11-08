@@ -80,6 +80,7 @@ public class RecursoEstabelecimento extends ConfiguracaoDaAplicacao {
     @Path("/distancia")
     public List<Estabelecimento> getEstabelecimentoByOutros2(@QueryParam("campo") String campo, @QueryParam("valor") String valor, @QueryParam("campo2") String campo2, @QueryParam("valor2") String valor2) {
         try {
+            System.out.println("Entrou AQUIIIIII");
             return filtro.retornaEstabelecimento(campo, valor, campo2, valor2);
         } catch (DAOException ex) {
             Logger.getLogger(RecursoEstabelecimento.class.getName()).log(Level.SEVERE, null, ex);

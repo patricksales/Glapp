@@ -77,7 +77,9 @@ public class Filtro {
         } else if (campo.equals("unidade")) {
             return jpa.findNamedQuery("Estabelecimento.findBy.unidade", campo, "%" + valor + "%");
         } else if (campo.equals("latitude") && campo2.equals("longitude")) {
-            return jpa.findNamedQuery("Estabelecimento.findBy.proximidade", "latUsuario", new BigDecimal(String.valueOf(valor)), "longUsuario", new BigDecimal(String.valueOf(valor2)));
+            List<Estabelecimento> listEst = jpa.findNamedQuery("Estabelecimento.findBy.proximidade", "latUsuario", new BigDecimal(String.valueOf(valor)), "longUsuario", new BigDecimal(String.valueOf(valor2)));
+            System.out.println("LISTA EST: " + listEst.toString());
+            return listEst;// jpa.findNamedQuery("Estabelecimento.findBy.proximidade", "latUsuario", new BigDecimal(String.valueOf(valor)), "longUsuario", new BigDecimal(String.valueOf(valor2)));
         } else {
             return null;
         }
